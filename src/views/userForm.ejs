@@ -1,122 +1,509 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Transporte</title>
-    <link rel="stylesheet" href="/css/index.css" />
-    <link rel="stylesheet" href="/css/forms.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jomolhari&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-  </head>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Usuario | Mis Vecinos</title>
+  
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      /* Sistema de colores */
+      --primary: #6d28d9;
+      --primary-dark: #5b21b6;
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --bg: #f9fafb;
+      --bg-card: #ffffff;
+      --border: #e5e7eb;
+      --error: #dc2626;
+      
+      /* Tipografía */
+      --font-main: 'Inter', sans-serif;
+      --font-heading: 'Playfair Display', serif;
+      
+      /* Espaciado */
+      --space-xs: 0.4rem;
+      --space-sm: 0.8rem;
+      --space-md: 1.2rem;
+      --space-lg: 2rem;
+      --space-xl: 3rem;
+      
+      /* Sombras */
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+      
+      /* Transiciones */
+      --transition: all 0.25s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: var(--font-main);
+      color: var(--text);
+      background-color: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Contenedor principal */
+    .register-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+      padding: var(--space-xl) 5%;
+    }
+    
+    /* Tarjeta de registro */
+    .register-card {
+      background-color: var(--bg-card);
+      border-radius: 8px;
+      padding: var(--space-xl);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-lg);
+      width: 100%;
+      max-width: 480px;
+      transition: var(--transition);
+    }
+    
+    .register-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: rgba(109, 40, 217, 0.2);
+    }
+    
+    .register-title {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: var(--space-sm);
+      color: var(--primary);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+    }
+    
+    .register-subtitle {
+      font-size: 1rem;
+      color: var(--text-light);
+      margin-bottom: var(--space-lg);
+      text-align: center;
+    }
+    
+    .error-message {
+      color: var(--error);
+      font-size: 0.9rem;
+      margin-bottom: var(--space-md);
+      text-align: center;
+      padding: var(--space-sm);
+      background-color: rgba(220, 38, 38, 0.1);
+      border-radius: 4px;
+    }
+    
+    /* Formulario */
+    .form-row {
+      display: flex;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+    
+    .form-group {
+      margin-bottom: var(--space-md);
+      position: relative;
+      flex: 1;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: var(--space-md);
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: var(--transition);
+      background-color: var(--bg);
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.1);
+    }
+    
+    .form-label {
+      position: absolute;
+      left: var(--space-md);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      transition: var(--transition);
+      pointer-events: none;
+      background-color: var(--bg);
+      padding: 0 var(--space-xs);
+    }
+    
+    .form-input:focus + .form-label,
+    .form-input:not(:placeholder-shown) + .form-label {
+      top: 0;
+      font-size: 0.8rem;
+      color: var(--primary);
+      background-color: var(--bg-card);
+    }
+    
+    /* Select personalizado */
+    .custom-select {
+      width: 100%;
+      padding: var(--space-md);
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: var(--transition);
+      background-color: var(--bg);
+      margin-bottom: var(--space-md);
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right var(--space-md) center;
+      background-size: 1rem;
+      color: var(--text-light);
+      font-weight: 400;
+      cursor: pointer;
+    }
 
-  <body>
-     <div class="div_center">
-     <form class="form" id="form">
-        <div class="div_sub_container_form">
-          <a href="users" class="button_back">
-            <div class="button_back_box">
-              <span class="button_elem">
-                <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
-                  ></path>
-                </svg>
-              </span>
-              <span class="button-elem">
-                <svg viewBox="0 0 46 40">
-                  <path
-                    d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
-                  ></path>
-                </svg>
-              </span>
-            </div>
-          </a>
-          <p class="title">Crear usuario</p>
+    .custom-select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.1);
+    }
+
+    /* Botón */
+    .register-button {
+      width: 100%;
+      padding: var(--space-md);
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: var(--space-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+    }
+    
+    .register-button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    /* Links */
+    .form-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: var(--space-md);
+    }
+    
+    .form-link {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: var(--transition);
+      margin-top: var(--space-sm);
+    }
+    
+    .form-link:hover {
+      color: var(--primary);
+    }
+    
+    .form-link-primary {
+      color: var(--primary);
+      font-weight: 500;
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: white;
+      padding: var(--space-xl) 5%;
+      border-top: 1px solid var(--border);
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-lg);
+    }
+    
+    .footer-links {
+      margin-bottom: var(--space-md);
+    }
+    
+    .footer-links h4 {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      margin-bottom: var(--space-sm);
+      color: var(--primary);
+    }
+    
+    .footer-links ul {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: var(--space-xs);
+    }
+    
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+    
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: var(--space-sm);
+    }
+    
+    .social-links a {
+      color: var(--text-light);
+      transition: var(--transition);
+    }
+    
+    .social-links a:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .register-card {
+        padding: var(--space-lg);
+      }
+      
+      .register-title {
+        font-size: 1.8rem;
+      }
+      
+      .form-row {
+        flex-direction: column;
+        gap: var(--space-md);
+      }
+      
+      .footer-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .register-card {
+        padding: var(--space-md);
+      }
+      
+      .footer-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="register-container">
+    <div class="register-card">
+      <form class="register-form" id="form" method="POST">
+        <h1 class="register-title">
+          <i class="fas fa-user-plus"></i> Crear Usuario
+        </h1>
+        <p class="register-subtitle">Agregar nuevo usuario al sistema</p>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <input
+              required
+              placeholder=" "
+              type="text"
+              class="form-input"
+              id="name"
+              name="name"
+            />
+            <label for="name" class="form-label">Nombre</label>
+          </div>
+          
+          <div class="form-group">
+            <input
+              required
+              placeholder=" "
+              type="text"
+              class="form-input"
+              id="last_name"
+              name="last_name"
+            />
+            <label for="last_name" class="form-label">Apellido</label>
+          </div>
         </div>
-
-        <label>
+        
+        <div class="form-group">
           <input
-            required=""
-            placeholder=""
-            type="text"
-            class="input"
-            id="description"
-            name="description"
+            required
+            placeholder=" "
+            type="email"
+            class="form-input"
+            id="email"
+            name="email"
           />
-          <span>Descripción</span>
-        </label>
-
-        <label>
+          <label for="email" class="form-label">Correo electrónico</label>
+        </div>
+        
+        <div class="form-group">
           <input
-            required=""
-            placeholder=""
-            type="text"
-            class="input"
-            id="address"
-            name="address"
+            required
+            placeholder=" "
+            type="date"
+            class="form-input"
+            id="birthdate"
+            name="birthdate"
           />
-          <span>Lugar</span>
-        </label>
-
-        <select id="myDropdown" class="custom-select" name="rol">
-          <option value="" disabled selected>Selecciona el tipo de rol del usuario</option>
-          <option value="opcion1">Admin</option>
-          <option value="opcion2">Ciudadano</option>
-          <option value="opcion3">Emprendedor</option>
+          <label for="birthdate" class="form-label">Fecha de nacimiento</label>
+        </div>
+        
+        <div class="form-group">
+          <input
+            required
+            placeholder=" "
+            type="password"
+            class="form-input"
+            id="password"
+            name="password"
+          />
+          <label for="password" class="form-label">Contraseña</label>
+        </div>
+        
+        <div class="form-group">
+          <input
+            required
+            placeholder=" "
+            type="password"
+            class="form-input"
+            id="password_check"
+            name="password_check"
+          />
+          <label for="password_check" class="form-label">Confirmar contraseña</label>
+        </div>
+        
+        <select id="rol" class="custom-select" name="rol" required>
+          <option value="" disabled selected>Selecciona un rol</option>
+          <option value="admin">Administrador</option>
+          <option value="citizen">Ciudadano</option>
+          <option value="entrepreneur">Emprendedor</option>
         </select>
 
-        <button class="button button_color_primary">Crear usuario</button>
+        <button type="submit" class="register-button">
+          <i class="fas fa-user-plus"></i> Crear Usuario
+        </button>
+        
+        <div class="form-links">
+          <a href="users" class="form-link form-link-primary">
+            <i class="fas fa-arrow-left"></i> Volver a la lista de usuarios
+          </a>
+        </div>
       </form>
     </div>
-  </div>
-
-    <footer class="footer">
-      <div class="container">
-        <div class="footer_row">
-          <div class="footer_links">
-            <h4>Mis vecinos</h4>
-            <ul>
-              <li><a href="#">Code Crafters team</a></li>
-              <li><a href="#">codecrafters.com</a></li>
-              <li><a href="#"> #code-crafters</a></li>
-            </ul>
-          </div>
-          <div class="footer_links">
-            <h4>Company</h4>
-            <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Career</a></li>
-              <li><a href="#">How It Works</a></li>
-            </ul>
-          </div>
-          <div class="footer_links">
-            <h4>Get In Touch</h4>
-            <ul>
-              <li><a href="#"> (506) 60324248 </a></li>
-              <li><a href="#">info@codecrafters.com </a></li>
-            </ul>
-          </div>
-          <div class="footer_links">
-            <h4>Siguenos en redes sociales</h4>
-            <div class="social_links">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-linkedin"></i></a>
-            </div>
+  </main>
+  
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-row">
+        <div class="footer-links">
+          <h4>Mis vecinos</h4>
+          <ul>
+            <li><a href="#">Code Crafters team</a></li>
+            <li><a href="#">codecrafters.com</a></li>
+            <li><a href="#">#code-crafters</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-links">
+          <h4>Compañía</h4>
+          <ul>
+            <li><a href="#">Sobre nosotros</a></li>
+            <li><a href="#">Cómo trabajar con nosotros</a></li>
+            <li><a href="#">Documentación</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-links">
+          <h4>Contactos</h4>
+          <ul>
+            <li><a href="#">(506) 60324248</a></li>
+            <li><a href="#">info@codecrafters.com</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-links">
+          <h4>Síguenos en redes sociales</h4>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
           </div>
         </div>
       </div>
-    </footer>
-  </body>
+    </div>
+  </footer>
+  
+  <script>
+    // Script para mejorar la experiencia del formulario
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('form');
+      
+      // Validación personalizada
+      form.addEventListener('submit', function(e) {
+        const password = document.getElementById('password');
+        const passwordCheck = document.getElementById('password_check');
+        
+        if (password.value !== passwordCheck.value) {
+          e.preventDefault();
+          alert('Las contraseñas no coinciden');
+          passwordCheck.focus();
+        }
+      });
+      
+      // Mejorar la experiencia de fecha
+      const birthdateInput = document.getElementById('birthdate');
+      const today = new Date().toISOString().split('T')[0];
+      birthdateInput.max = today;
+    });
+  </script>
+</body>
 </html>
