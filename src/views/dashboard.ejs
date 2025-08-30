@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Paseo Colón</title>
+  
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      /* Sistema de colores */
+      --primary: #6d28d9;
+      --primary-dark: #5b21b6;
+      --primary-light: rgba(109, 40, 217, 0.1);
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --bg: #f9fafb;
+      --bg-card: #ffffff;
+      --border: #e5e7eb;
+      --error: #dc2626;
+      
+      /* Tipografía */
+      --font-main: 'Inter', sans-serif;
+      --font-heading: 'Playfair Display', serif;
+      
+      /* Espaciado */
+      --space-xs: 0.4rem;
+      --space-sm: 0.8rem;
+      --space-md: 1.2rem;
+      --space-lg: 2rem;
+      --space-xl: 3rem;
+      
+      /* Sombras */
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+      
+      /* Transiciones */
+      --transition: all 0.25s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: var(--font-main);
+      color: var(--text);
+      background-color: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Barra de navegación */
+    nav {
+      background-color: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-sm) 5%;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo img {
+      height: 40px;
+      transition: var(--transition);
+    }
+    
+    .logo img:hover {
+      transform: translateY(-2px);
+    }
+    
+    /* Menú hamburguesa */
+    #toggle {
+      display: none;
+    }
+    
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      padding: var(--space-sm);
+    }
+    
+    .hamburger svg {
+      width: 32px;
+      height: 32px;
+    }
+    
+    .hamburger .line {
+      fill: none;
+      stroke: var(--text);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: var(--transition);
+    }
+    
+    /* Menú de navegación */
+    .menu {
+      display: flex;
+      list-style: none;
+      gap: var(--space-md);
+      align-items: center;
+    }
+    
+    .menu a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      transition: var(--transition);
+      padding: var(--space-sm) 0;
+      position: relative;
+    }
+    
+    .menu a:hover {
+      color: var(--primary);
+    }
+    
+    .menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+    
+    .menu a:hover::after {
+      width: 100%;
+    }
+    
+    /* Contenido principal */
+    .container_header {
+      flex-grow: 1;
+      padding: var(--space-xl) 5%;
+    }
+    
+    .header {
+      max-width: 1200px;
+      margin: 0 auto var(--space-xl);
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    
+    .welcome-text {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    
+    .role-badge {
+      background-color: var(--primary-light);
+      color: var(--primary);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    
+    /* Secciones */
+    .section {
+      max-width: 1200px;
+      margin: 0 auto var(--space-xl);
+    }
+    
+    .section h2 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: var(--space-lg);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    
+    /* Tarjetas */
+    .container_cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-md);
+    }
+    
+    .card {
+      background-color: var(--bg-card);
+      border-radius: 8px;
+      padding: var(--space-lg);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(109, 40, 217, 0.2);
+    }
+    
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--primary-light);
+      border-radius: 8px;
+      margin-bottom: var(--space-md);
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+    
+    .card-info {
+      flex-grow: 1;
+    }
+    
+    .card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+    
+    .card p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-bottom: var(--space-md);
+    }
+    
+    /* Botones */
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-sm) var(--space-md);
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      background-color: var(--primary);
+      color: white;
+      gap: var(--space-xs);
+    }
+    
+    .button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: white;
+      padding: var(--space-xl) 5%;
+      border-top: 1px solid var(--border);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer_row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-lg);
+    }
+    
+    .footer_links {
+      margin-bottom: var(--space-md);
+    }
+    
+    .footer_links h4 {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      margin-bottom: var(--space-sm);
+      color: var(--primary);
+    }
+    
+    .footer_links ul {
+      list-style: none;
+    }
+    
+    .footer_links li {
+      margin-bottom: var(--space-xs);
+    }
+    
+    .footer_links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+    
+    .footer_links a:hover {
+      color: var(--primary);
+    }
+    
+    .social_links {
+      display: flex;
+      gap: var(--space-sm);
+    }
+    
+    .social_links a {
+      color: var(--text-light);
+      transition: var(--transition);
+    }
+    
+    .social_links a:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+      
+      .menu {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        flex-direction: column;
+        padding: var(--space-md);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        z-index: 99;
+      }
+      
+      #toggle:checked ~ .menu {
+        transform: translateY(0);
+      }
+      
+      .header {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .welcome-text {
+        font-size: 1.8rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .welcome-text {
+        font-size: 1.5rem;
+      }
+      
+      .container_cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        <img src="/imgs/logos/logo_mis_vecinos.jpeg" alt="Logo Paseo Colón" />
+      </div>
+
+      <input type="checkbox" id="toggle" />
+
+      <label for="toggle" class="hamburger">
+        <svg viewBox="0 0 32 32">
+          <path class="line line-top-bottom"
+            d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22">
+          </path>
+          <path class="line" d="M7 16 27 16"></path>
+        </svg>
+      </label>
+
+      <ul class="menu">
+        <li><a href="dashboard">Dashboard</a></li>
+        <li><a href="advertisement">Anuncios</a></li>
+        <li><a href="event">Eventos</a></li>
+        <li><a href="complaint">Quejas</a></li>
+        <li><a href="transport">Transporte</a></li>
+        <li><a href="entrepreneur">Emprendimientos</a></li>
+        <li><a href="profile">Mi perfil</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container_header">
+    <div class="header">
+      <h1 class="welcome-text">
+        ¡Bienvenido <%= (user && user.name) ? user.name : 'Usuario' %>!
+        <div class="role-badge">
+          <i class="fas fa-user-tag"></i>
+          <% if (user && user.rol=== 'ADMIN_ROLE' ) { %>
+            Administrador
+          <% } else if (user && user.rol=== 'CITIZEN_ROLE' ) { %>
+            Ciudadano
+          <% } else if (user && user.rol=== 'ENTREPRENEUR_ROLE' ) { %>
+            Emprendedor
+          <% } %>
+        </div>
+      </h1>
+    </div>
+
+    <% if (user && user.rol=== 'ADMIN_ROLE' ) { %>
+      <section class="section">
+        <h2><i class="fas fa-crown"></i> Panel de Administración</h2>
+        <div class="container_cards">
+          <div class="card">
+            <div class="card-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="card-info">
+              <h3>Usuarios</h3>
+              <p>Gestiona usuarios del sistema, permisos.</p>
+              <a class="button" href="/users">
+                <i class="fas fa-arrow-right"></i>
+                Ver usuarios
+              </a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-icon">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <div class="card-info">
+              <h3>Emprendimientos</h3>
+              <p>Aprueba, revisa y administra todos los emprendimientos registrados.</p>
+              <a class="button" href="/entrepreneurAdmin">
+                <i class="fas fa-arrow-right"></i>
+                Administrar
+              </a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-icon">
+              <i class="fas fa-bullhorn"></i>
+            </div>
+            <div class="card-info">
+              <h3>Anuncios y Eventos</h3>
+              <p>Publica, revisa y gestiona anuncios y eventos de la comunidad.</p>
+              <a class="button" href="/advertisement">
+                <i class="fas fa-arrow-right"></i>
+                Ir a anuncios
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    <% } else if (user && user.rol=== 'CITIZEN_ROLE' ) { %>
+      <section class="section">
+        <h2><i class="fas fa-user"></i> Panel de Ciudadano</h2>
+        <div class="container_cards">
+          <div class="card">
+            <div class="card-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="card-info">
+              <h3>Eventos</h3>
+              <p>Explora eventos de tu comunidad.</p>
+              <a class="button" href="/event">
+                <i class="fas fa-arrow-right"></i>
+                Ver eventos
+              </a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-icon">
+              <i class="fas fa-bus"></i>
+            </div>
+            <div class="card-info">
+              <h3>Transporte</h3>
+              <p>Consulta información de transporte.</p>
+              <a class="button" href="/transport">
+                <i class="fas fa-arrow-right"></i>
+                Ver transporte
+              </a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="card-info">
+              <h3>Denuncias</h3>
+              <p>Envía una denuncia ciudadana.</p>
+              <a class="button" href="/complaintForm">
+                <i class="fas fa-arrow-right"></i>
+                Crear denuncia
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    <% } else if (user && user.rol=== 'ENTREPRENEUR_ROLE' ) { %>
+      <section class="section">
+        <h2><i class="fas fa-briefcase"></i> Panel de Emprendedor</h2>
+        <div class="container_cards">
+          <div class="card">
+            <div class="card-icon">
+              <i class="fas fa-store"></i>
+            </div>
+            <div class="card-info">
+              <h3>Mi Emprendimiento</h3>
+              <p>Gestiona tu emprendimiento y productos.</p>
+              <a class="button" href="/entrepreneur">
+                <i class="fas fa-arrow-right"></i>
+                Ver emprendimiento
+              </a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="card-info">
+              <h3>Estadísticas</h3>
+              <p>Revisa el desempeño y métricas de tu negocio.</p>
+              <a class="button" href="/entrepreneurStats">
+                <i class="fas fa-arrow-right"></i>
+                Ver estadísticas
+              </a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-icon">
+              <i class="fas fa-plus-circle"></i>
+            </div>
+            <div class="card-info">
+              <h3>Nuevo Producto</h3>
+              <p>Agrega nuevos productos o servicios.</p>
+              <a class="button" href="/addProduct">
+                <i class="fas fa-arrow-right"></i>
+                Agregar producto
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    <% } else { %>
+      <section class="section">
+        <div class="container_cards">
+          <div class="card">
+            <div class="card-icon">
+              <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="card-info">
+              <h3>Error de Sesión</h3>
+              <p>No se pudo determinar tu rol. Intenta cerrar sesión e iniciar nuevamente.</p>
+              <a class="button" href="/logout">
+                <i class="fas fa-sign-out-alt"></i>
+                Cerrar sesión
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    <% } %>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer_row">
+        <div class="footer_links">
+          <h4>Mis vecinos</h4>
+          <ul>
+            <li><a href="#">Code Crafters team</a></li>
+            <li><a href="#">codecrafters.com</a></li>
+            <li><a href="#">#code-crafters</a></li>
+          </ul>
+        </div>
+        <div class="footer_links">
+          <h4>Compañía</h4>
+          <ul>
+            <li><a href="#">Sobre nosotros</a></li>
+            <li><a href="#">Cómo trabajar con nosotros</a></li>
+          </ul>
+        </div>
+        <div class="footer_links">
+          <h4>Contactanos</h4>
+          <ul>
+            <li><a href="#">(506) 60324248</a></li>
+            <li><a href="#">info@codecrafters.com</a></li>
+          </ul>
+        </div>
+        <div class="footer_links">
+          <h4>Siguenos en redes sociales</h4>
+          <div class="social_links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/navAdmin.js"></script>
+</body>
+</html>

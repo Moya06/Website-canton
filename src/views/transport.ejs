@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transporte | Mis Vecinos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6d28d9;
+      --primary-dark: #5b21b6;
+      --primary-light: rgba(109, 40, 217, 0.1);
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --bg: #f9fafb;
+      --bg-card: #ffffff;
+      --border: #e5e7eb;
+      --error: #dc2626;
+      --font-main: 'Inter', sans-serif;
+      --font-heading: 'DM Serif Text', serif;
+      --space-xs: 0.4rem;
+      --space-sm: 0.8rem;
+      --space-md: 1.2rem;
+      --space-lg: 1.6rem;
+      --space-xl: 2rem;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --transition: all 0.2s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-main);
+      color: var(--text);
+      background-color: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
+
+    /* ---------- NAVBAR ---------- */
+    nav {
+      background-color: var(--bg-card);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-sm) 5%;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 40px;
+      transition: var(--transition);
+    }
+
+    .logo img:hover {
+      transform: translateY(-2px);
+    }
+
+    /* ---------- MENÚ HAMBURGUESA ---------- */
+    #toggle {
+      display: none;
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      padding: var(--space-sm);
+    }
+
+    .hamburger svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .hamburger .line {
+      fill: none;
+      stroke: var(--text);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: var(--transition);
+    }
+
+    /* ---------- MENÚ ---------- */
+    .menu {
+      display: flex;
+      list-style: none;
+      gap: var(--space-md);
+      align-items: center;
+    }
+
+    .menu a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      transition: var(--transition);
+      padding: var(--space-sm) 0;
+      position: relative;
+    }
+
+    .menu a:hover {
+      color: var(--primary);
+    }
+
+    .menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .menu a:hover::after {
+      width: 100%;
+    }
+
+    /* ---------- CONTENIDO PRINCIPAL ---------- */
+    .main-content {
+      max-width: 1200px;
+      margin: var(--space-xl) auto;
+      padding: 0 5%;
+      flex: 1;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-lg);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .transport-icon {
+      font-size: 1.8rem;
+      color: black;
+    }
+
+    .page-title {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .create-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-left: 220px;
+      /* Esto lo empuja a la derecha */
+      white-space: nowrap;
+      /* Evita que el texto se divida */
+    }
+
+    /* Media query para móviles */
+    @media (max-width: 480px) {
+      .page-header {
+        flex-direction: row;
+        /* Mantenemos horizontal */
+        flex-wrap: wrap;
+        /* Permite salto de línea si es necesario */
+      }
+
+      .create-btn {
+        margin-left: 0;
+        /* Quita el margen automático */
+        width: 100%;
+        /* Ocupa todo el ancho */
+        justify-content: center;
+        /* Centra el contenido */
+        margin-top: var(--space-sm);
+        /* Espacio arriba */
+      }
+    }
+
+    .create-btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Contenedor de creación */
+    .creation_div {
+      /* Eliminar estas propiedades */
+      position: absolute;
+      left: 1065px;
+
+    }
+
+    /* ---------- TARJETAS DE TRANSPORTE ---------- */
+    .transport-card {
+      background-color: var(--bg-card);
+      border-radius: 8px;
+      padding: var(--space-md);
+      margin-bottom: var(--space-lg);
+      box-shadow: var(--shadow-sm);
+      border-left: 4px solid var(--primary);
+    }
+
+    .transport-name {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      color: var(--primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .transport-description {
+      margin-bottom: var(--space-md);
+      color: var(--text);
+    }
+
+    .transport-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      color: var(--text);
+    }
+
+    .detail-icon {
+      color: var(--primary);
+      width: 20px;
+      text-align: center;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    .action-button {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .action-button:hover {
+      color: var(--primary-dark);
+    }
+
+    .divider {
+      border: none;
+      height: 1px;
+      background-color: var(--border);
+      margin: var(--space-lg) 0;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .footer {
+      background-color: var(--bg-card);
+      padding: var(--space-xl) 5%;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer_row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .footer_links {
+      margin-bottom: var(--space-md);
+    }
+
+    .footer_links h4 {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      margin-bottom: var(--space-sm);
+      color: var(--primary);
+    }
+
+    .footer_links ul {
+      list-style: none;
+    }
+
+    .footer_links li {
+      margin-bottom: var(--space-xs);
+    }
+
+    .footer_links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .footer_links a:hover {
+      color: var(--primary);
+    }
+
+    .social_links {
+      display: flex;
+      gap: var(--space-sm);
+    }
+
+    .social_links a {
+      color: var(--text-light);
+      transition: var(--transition);
+      font-size: 1.1rem;
+    }
+
+    .social_links a:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* ---------- MEDIA QUERIES ---------- */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      .menu {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-card);
+        flex-direction: column;
+        padding: var(--space-md);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        z-index: 99;
+      }
+
+      #toggle:checked~.menu {
+        transform: translateY(0);
+      }
+
+      .transport-details {
+        flex-direction: column;
+        gap: var(--space-sm);
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        gap: var(--space-sm);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-title {
+        font-size: 1.5rem;
+      }
+
+      .transport-name {
+        font-size: 1.1rem;
+      }
+
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-md);
+      }
+    }
+    /* ESTILOS PARA EL BOTÓN RESPONSIVO *//* Estilo base: botón compacto */
+.creation_div {
+  position: static;
+  margin-left: auto;
+}
+
+
+.create-btn {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: var(--space-sm) var(--space-md); /* Tamaño fijo */
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  white-space: nowrap;
+  width: auto !important; /* Fuerza ancho automático */
+  min-width: 180px; /* Ancho mínimo fijo */
+}
+
+
+.create-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/* Solo para pantallas ≤ 420px */
+@media (max-width: 145px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-md);
+  }
+
+  .creation_div {
+    width: 100%;
+  }
+
+  .create-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+    .create-btn-container {
+      margin-top: 200px;
+      margin-left: auto;
+      margin-right: 100px;
+      /* Ajusta este valor según necesites */
+      transform: translateX(100px);
+      /* Esto moverá el botón 100px más a la derecha */
+      margin-top: 13px;
+      /* Añade 3px de espacio arriba */
+
+    }
+    /* Solo para pantallas grandes (más de 1024px) */
+@media (min-width: 145px) {
+  .page-title {
+    margin-right: 200px;
+  }
+}
+
+/* Para pantallas pequeñas se quita automáticamente */
+@media (max-width: 145px) {
+  .page-title {
+    margin-right: 0;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        <img src="/imgs/logos/logo_mis_vecinos.jpeg" alt="Logo mis vecinos" />
+      </div>
+
+      <input type="checkbox" id="toggle" />
+
+      <label for="toggle" class="hamburger">
+        <svg viewBox="0 0 32 32">
+          <path class="line line-top-bottom"
+            d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22">
+          </path>
+          <path class="line" d="M7 16 27 16"></path>
+        </svg>
+      </label>
+
+      <ul class="menu">
+        <li><a href="dashboard">Dashboard</a></li>
+        <li><a href="advertisement">Anuncios</a></li>
+        <li><a href="event">Eventos</a></li>
+        <li><a href="complaint">Quejas</a></li>
+        <li><a href="transport">Transporte</a></li>
+        <li><a href="entrepreneur">Emprendimientos</a></li>
+        <li><a href="profile">Mi perfil</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="main-content">
+    <div class="page-header">
+      <div class="header-left">
+        <i class="fas fa-bus transport-icon"></i>
+<h1 class="page-title">Transporte Comunitario</h1>
+        <!-- Contenedor para el formulario de creación -->
+        <div class="creation_div" style="display: flex !important; ">
+      <button class="create-btn">
+        <i class="fas fa-plus"></i> Crear Transporte
+      </button>
+    </div>
+      </div>
+
+    </div>
+
+
+    <!-- Ruta 1 -->
+    <div class="transport-card">
+      <h2 class="transport-name">Periférica Paseo Colón</h2>
+      <p class="transport-description">Ruta principal que conecta el centro con los barrios periféricos.</p>
+
+      <div class="transport-details">
+        <div class="detail-item">
+          <span class="detail-icon"><i class="far fa-clock"></i></span>
+          <span>6:00 am - 9:00 pm</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-icon"><i class="fas fa-money-bill-wave"></i></span>
+          <span>Tarifa: ¢600</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-icon"><i class="fas fa-map-marker-alt"></i></span>
+          <span>Parada principal: Estadio Nacional</span>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <a href="#" class="action-button">
+          <i class="fas fa-info-circle"></i>
+          <span>Más información</span>
+        </a>
+        <a href="#" class="action-button">
+          <i class="fas fa-map-marked-alt"></i>
+          <span>Ver ruta</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Ruta 2 -->
+    <div class="transport-card">
+      <h2 class="transport-name">Central Autobusera Inteligente</h2>
+      <p class="transport-description">Conexión directa entre el centro y la provincia de Guanacaste.</p>
+
+      <div class="transport-details">
+        <div class="detail-item">
+          <span class="detail-icon"><i class="far fa-clock"></i></span>
+          <span>5:00 am - 6:00 pm</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-icon"><i class="fas fa-money-bill-wave"></i></span>
+          <span>Tarifa: ¢1200</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-icon"><i class="fas fa-map-marker-alt"></i></span>
+          <span>150m oeste Hospital de Niños</span>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <a href="#" class="action-button">
+          <i class="fas fa-info-circle"></i>
+          <span>Más información</span>
+        </a>
+        <a href="#" class="action-button">
+          <i class="fas fa-map-marked-alt"></i>
+          <span>Ver ruta</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Ruta 3 -->
+    <div class="transport-card">
+      <h2 class="transport-name">Ruta Universitaria</h2>
+      <p class="transport-description">Servicio especial para estudiantes con paradas en campus universitarios.</p>
+
+      <div class="transport-details">
+        <div class="detail-item">
+          <span class="detail-icon"><i class="far fa-clock"></i></span>
+          <span>7:00 am - 10:00 pm (L-V)</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-icon"><i class="fas fa-money-bill-wave"></i></span>
+          <span>Tarifa con carné: ¢450</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-icon"><i class="fas fa-map-marker-alt"></i></span>
+          <span>Parada: Plaza de la Cultura</span>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <a href="#" class="action-button">
+          <i class="fas fa-info-circle"></i>
+          <span>Más información</span>
+        </a>
+        <a href="#" class="action-button">
+          <i class="fas fa-map-marked-alt"></i>
+          <span>Ver ruta</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="transport-card">
+      <h2 class="transport-name">Servicios Especiales</h2>
+      <p class="transport-description">Transporte para eventos y actividades comunitarias.</p>
+
+      <div class="action-buttons">
+        <a href="#" class="action-button">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Ver calendario</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer_row">
+        <div class="footer_links">
+          <h4>Mis vecinos</h4>
+          <ul>
+            <li><a href="#">Code Crafters team</a></li>
+            <li><a href="#">codecrafters.com</a></li>
+            <li><a href="#">#code-crafters</a></li>
+          </ul>
+        </div>
+        <div class="footer_links">
+          <h4>Compañía</h4>
+          <ul>
+            <li><a href="#">Sobre nosotros</a></li>
+            <li><a href="#">Cómo trabajar con nosotros</a></li>
+          </ul>
+        </div>
+        <div class="footer_links">
+          <h4>Contáctanos</h4>
+          <ul>
+            <li><a href="#">(506) 60324248</a></li>
+            <li><a href="#">info@codecrafters.com</a></li>
+          </ul>
+        </div>
+        <div class="footer_links">
+          <h4>Síguenos en redes sociales</h4>
+          <div class="social_links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/createTransportSetup.js"></script>
+  <script type="module" src="/js/navAdmin.js"></script>
+  <script type="module" src="/js/changeCardsAdmin.js"></script>
+</body>
+
+</html>

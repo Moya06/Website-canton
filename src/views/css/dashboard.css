@@ -1,0 +1,324 @@
+:root {
+  /* Colors */
+  --color-primary: #075056;
+  --color-secondary: #16232a;
+  --color-orange: #ff5b05;
+  --color-text-dark: #000;
+  /* Spacing */
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 24px;
+  /* Fonts */
+  --font-family-title: "Arial", sans-serif;
+  --font-family-body: "Arial", sans-serif;
+  --font-size-base: 16px;
+}
+
+.background-pattern {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(7, 80, 86, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(255, 91, 5, 0.1) 0%, transparent 50%);
+  z-index: -1;
+}
+
+.container_header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  position: relative;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+  color: black;
+}
+
+.header h1 {
+  font-family: var(--font-family-title);
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  animation: slideDown 0.8s ease-out;
+}
+
+.welcome-text {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 20px;
+  animation: fadeIn 1s ease-out 0.3s both;
+}
+
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-small);
+  padding: 12px 20px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--color-orange);
+  color: black;
+  animation: fadeIn 1s ease-out 0.6s both;
+  box-shadow: 0 8px 32px rgba(255, 91, 5, 0.3);
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.section h2 {
+  font-family: var(--font-family-title);
+  color: black;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.8s ease-out 0.4s both;
+}
+
+.container_cards {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  padding: 40px 0;
+}
+
+.card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  width: 280px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  text-align: center;
+  position: relative;
+  animation: cardSlideUp 0.8s ease-out both;
+}
+
+.card:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.card:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.card:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--color-orange);
+  transition: height 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 8px,
+    rgba(0, 0, 0, 0.4) 0px 12px 20px -3px, rgba(0, 0, 0, 0.3) 0px -3px 0px inset;
+}
+
+.card:hover::before {
+  height: 6px;
+}
+
+.card-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 20px auto;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.card-info {
+  padding: var(--spacing-medium);
+}
+
+.card-info h3 {
+  font-family: var(--font-family-title);
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: var(--color-text-dark);
+}
+
+.card-info p {
+  margin: 6px 0 20px 0;
+  font-size: 15px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(7, 80, 86, 0.3);
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(7, 80, 86, 0.4);
+  background: var(--color-secondary);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+/* Colores específicos para cada rol */
+.admin-card .card-icon {
+  background: linear-gradient(135deg, var(--color-orange), #ff7b35);
+}
+
+.entrepreneur-card .card-icon {
+  background: linear-gradient(135deg, var(--color-primary), #0a6b73);
+}
+
+.citizen-card .card-icon {
+  background: linear-gradient(135deg, var(--color-secondary), #2a3740);
+}
+
+.no-role-message {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  animation: fadeIn 1s ease-out;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.no-role-message i {
+  font-size: 48px;
+  color: var(--color-orange);
+  margin-bottom: 20px;
+}
+
+.no-role-message p {
+  font-size: 18px;
+  color: var(--color-text-dark);
+  margin: 0;
+}
+
+/* Animaciones */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container_header {
+    padding: 20px 15px;
+  }
+
+  .header h1 {
+    font-size: 2.2rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card {
+    padding: 25px;
+  }
+
+  .section h2 {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.8rem;
+  }
+
+  .welcome-text {
+    font-size: 1rem;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+  }
+}

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anuncios | Mis Vecinos</title>
+    
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+      :root {
+        /* Sistema de colores */
+        --primary: #6d28d9;
+        --primary-dark: #5b21b6;
+        --primary-light: rgba(109, 40, 217, 0.1);
+        --text: #1f2937;
+        --text-light: #6b7280;
+        --bg: #f9fafb;
+        --bg-card: #ffffff;
+        --border: #e5e7eb;
+        --error: #dc2626;
+        
+        /* Tipografía */
+        --font-main: 'Inter', sans-serif;
+        --font-heading: 'Playfair Display', serif;
+        
+        /* Espaciado */
+        --space-xs: 0.4rem;
+        --space-sm: 0.8rem;
+        --space-md: 1.2rem;
+        --space-lg: 2rem;
+        --space-xl: 3rem;
+        
+        /* Sombras */
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        
+        /* Transiciones */
+        --transition: all 0.25s ease;
+      }
+      
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: var(--font-main);
+        color: var(--text);
+        background-color: var(--bg);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      /* Barra de navegación */
+      nav {
+        background-color: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(8px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 1px solid var(--border);
+        padding: var(--space-sm) 5%;
+      }
+      
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .logo img {
+        height: 40px;
+        transition: var(--transition);
+      }
+      
+      .logo img:hover {
+        transform: translateY(-2px);
+      }
+      
+      /* Menú hamburguesa */
+      #toggle {
+        display: none;
+      }
+      
+      .hamburger {
+        display: none;
+        cursor: pointer;
+        padding: var(--space-sm);
+      }
+      
+      .hamburger svg {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .hamburger .line {
+        fill: none;
+        stroke: var(--text);
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        transition: var(--transition);
+      }
+      
+      /* Menú de navegación */
+      .menu {
+        display: flex;
+        list-style: none;
+        gap: var(--space-md);
+        align-items: center;
+      }
+      
+      .menu a {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--text);
+        text-decoration: none;
+        transition: var(--transition);
+        padding: var(--space-sm) 0;
+        position: relative;
+      }
+      
+      .menu a:hover {
+        color: var(--primary);
+      }
+      
+      .menu a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--primary);
+        transition: var(--transition);
+      }
+      
+      .menu a:hover::after {
+        width: 100%;
+      }
+      
+      /* Contenido principal */
+      .container_header {
+        flex-grow: 1;
+        padding: var(--space-xl) 5%;
+      }
+      
+      .header {
+        max-width: 1200px;
+        margin: 0 auto var(--space-xl);
+        display: flex;
+        align-items: center;
+        gap: var(--space-md);
+      }
+      
+      .section {
+        max-width: 1200px;
+        margin: 0 auto var(--space-xl);
+      }
+      
+      .section h2 {
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: var(--space-lg);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+      }
+      
+      /* Tarjetas de anuncios */
+      .container_cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: var(--space-md);
+      }
+      
+      .card {
+        background-color: var(--bg-card);
+        border-radius: 8px;
+        padding: var(--space-lg);
+        border: 1px solid var(--border);
+        transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+        border-color: rgba(109, 40, 217, 0.2);
+      }
+      
+      .card-icon {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--primary-light);
+        border-radius: 8px;
+        margin-bottom: var(--space-md);
+        color: var(--primary);
+        font-size: 1.2rem;
+      }
+      
+      .card-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 6px;
+        margin-bottom: var(--space-md);
+      }
+      
+      .card-info {
+        flex-grow: 1;
+      }
+      
+      .card h3 {
+        font-family: var(--font-heading);
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: var(--space-sm);
+      }
+      
+      .card p {
+        font-size: 0.95rem;
+        color: var(--text-light);
+        margin-bottom: var(--space-sm);
+      }
+      
+      .card-meta {
+        display: flex;
+        gap: var(--space-sm);
+        font-size: 0.85rem;
+        color: var(--text-light);
+        margin-bottom: var(--space-md);
+      }
+      
+      .card-meta span {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+      }
+      
+      /* Botones */
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--space-sm) var(--space-md);
+        font-size: 0.95rem;
+        font-weight: 500;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: var(--transition);
+        text-decoration: none;
+        background-color: var(--primary);
+        color: white;
+        gap: var(--space-xs);
+      }
+      
+      .button:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-sm);
+      }
+      
+      .button-outline {
+        background-color: transparent;
+        border: 1px solid var(--primary);
+        color: var(--primary);
+      }
+      
+      .button-outline:hover {
+        background-color: var(--primary-light);
+      }
+      
+     .footer {
+      background-color: white;
+      padding: var(--space-xl) 5%; /* Padding lateral consistente */
+      border-top: 1px solid var(--border);
+      width: 100%;
+      box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+    }
+
+    .footer .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0; /* Eliminar padding interno adicional */
+    }
+
+    /* Asegurar que el body tenga el footer pegado al final */
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container_header {
+      flex: 1; /* Permite que el contenido principal ocupe el espacio disponible */
+      padding: var(--space-xl) 5%;
+    }
+      
+      .footer_row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--space-lg);
+      }
+      
+      .footer_links {
+        margin-bottom: var(--space-md);
+      }
+      
+      .footer_links h4 {
+        font-family: var(--font-heading);
+        font-size: 1.2rem;
+        margin-bottom: var(--space-sm);
+        color: var(--primary);
+      }
+      
+      .footer_links ul {
+        list-style: none;
+      }
+      
+      .footer_links li {
+        margin-bottom: var(--space-xs);
+      }
+      
+      .footer_links a {
+        color: var(--text-light);
+        text-decoration: none;
+        transition: var(--transition);
+        font-size: 0.9rem;
+      }
+      
+      .footer_links a:hover {
+        color: var(--primary);
+      }
+      
+      .social_links {
+        display: flex;
+        gap: var(--space-sm);
+      }
+      
+      .social_links a {
+        color: var(--text-light);
+        transition: var(--transition);
+      }
+      
+      .social_links a:hover {
+        color: var(--primary);
+        transform: translateY(-2px);
+      }
+      
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hamburger {
+          display: block;
+        }
+        
+        .menu {
+          position: fixed;
+          top: 70px;
+          left: 0;
+          width: 100%;
+          background-color: white;
+          flex-direction: column;
+          padding: var(--space-md);
+          box-shadow: var(--shadow-md);
+          transform: translateY(-150%);
+          transition: transform 0.3s ease;
+          z-index: 99;
+        }
+        
+        #toggle:checked ~ .menu {
+          transform: translateY(0);
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .container_cards {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-container">
+        <div class="logo">
+          <img
+            src="/imgs/logos/logo_mis_vecinos.jpeg"
+            alt="Logo mis vecinos"
+          />
+        </div>
+
+        <input type="checkbox" id="toggle" />
+
+        <label for="toggle" class="hamburger">
+          <svg viewBox="0 0 32 32">
+            <path
+              class="line line-top-bottom"
+              d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"
+            ></path>
+            <path class="line" d="M7 16 27 16"></path>
+          </svg>
+        </label>
+
+        <ul class="menu">
+          <li><a href="dashboard">Dashboard</a></li>
+          <li><a href="advertisement">Anuncios</a></li>
+          <li><a href="event">Eventos</a></li>
+          <li><a href="complaint">Quejas</a></li>
+          <li><a href="transport">Transporte</a></li>
+          <li><a href="entrepreneur">Emprendimientos</a></li>
+          <li><a href="profile">Mi perfil</a></li>
+        </ul>
+      </div>
+    </nav>
+
+<div class="container_header">
+  <div class="header">
+    <h1 class="welcome-text">
+      <i class="fas fa-bullhorn"></i> Anuncios de la comunidad
+    </h1>
+    <div class="creation_div" style="margin-left: auto;"></div>
+  </div>
+
+
+      <section class="section">
+        <h2><i class="fas fa-calendar-check"></i> Próximos eventos</h2>
+        <div class="container_cards">
+          <div class="card">
+            <img class="card-image" src="/imgs/img_cards/event.jpg" alt="Maratón">
+            <div class="card-info">
+              <h3>Maratón Anual</h3>
+              <p>Participa en nuestra carrera comunitaria con categorías para todas las edades.</p>
+              <div class="card-meta">
+                <span><i class="fas fa-calendar"></i> 20 Ago 2023</span>
+                <span><i class="fas fa-map-marker-alt"></i> Estadio Nacional</span>
+              </div>
+              <a href="#" class="button">
+                <i class="fas fa-info-circle"></i> Más información
+              </a>
+            </div>
+          </div>
+
+          <div class="card">
+            <img class="card-image" src="/imgs/img_cards/event.jpg" alt="Feria del Agricultor">
+            <div class="card-info">
+              <h3>Feria del Agricultor</h3>
+              <p>Productos frescos y locales directamente de nuestros productores.</p>
+              <div class="card-meta">
+                <span><i class="fas fa-calendar"></i> Cada sábado</span>
+                <span><i class="fas fa-map-marker-alt"></i> Plaza Central</span>
+              </div>
+              <a href="#" class="button">
+                <i class="fas fa-info-circle"></i> Más información
+              </a>
+            </div>
+          </div>
+
+          <div class="card">
+            <img class="card-image" src="/imgs/img_cards/event.jpg" alt="Taller">
+            <div class="card-info">
+              <h3>Taller Ambiental</h3>
+              <p>Aprende técnicas de reciclaje y cuidado del medio ambiente.</p>
+              <div class="card-meta">
+                <span><i class="fas fa-calendar"></i> 15 Sep 2023</span>
+                <span><i class="fas fa-map-marker-alt"></i> Centro Comunal</span>
+              </div>
+              <a href="#" class="button">
+                <i class="fas fa-info-circle"></i> Más información
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2><i class="fas fa-exclamation-circle"></i> Avisos importantes</h2>
+        <div class="container_cards">
+          <div class="card">
+            <div class="card-icon">
+              <i class="fas fa-tools"></i>
+            </div>
+            <div class="card-info">
+              <h3>Mantenimiento de Agua</h3>
+              <p>Interrupción programada del servicio de agua este viernes de 8am a 2pm.</p>
+              <div class="card-meta">
+                <span><i class="fas fa-clock"></i> 10:00 - 16:00</span>
+                <span><i class="fas fa-calendar"></i> 25 Ago 2023</span>
+              </div>
+              <a href="#" class="button button-outline">
+                <i class="fas fa-file-alt"></i> Ver detalles
+              </a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">
+              <i class="fas fa-traffic-light"></i>
+            </div>
+            <div class="card-info">
+              <h3>Cambios de Tráfico</h3>
+              <p>Nuevo sentido de circulación en calle principal a partir del lunes.</p>
+              <div class="card-meta">
+                <span><i class="fas fa-calendar"></i> A partir del 28 Ago</span>
+              </div>
+              <a href="#" class="button button-outline">
+                <i class="fas fa-map-marked-alt"></i> Ver mapa
+              </a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">
+              <i class="fas fa-hand-holding-usd"></i>
+            </div>
+            <div class="card-info">
+              <h3>Pago de Impuestos</h3>
+              <p>Recordatorio: vencimiento de pago de impuestos municipales.</p>
+              <div class="card-meta">
+                <span><i class="fas fa-calendar"></i> Hasta el 30 Ago</span>
+              </div>
+              <a href="#" class="button">
+                <i class="fas fa-money-bill-wave"></i> Pagar ahora
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer_row">
+          <div class="footer_links">
+            <h4>Mis vecinos</h4>
+            <ul>
+              <li><a href="#">Code Crafters team</a></li>
+              <li><a href="#">codecrafters.com</a></li>
+              <li><a href="#">#code-crafters</a></li>
+            </ul>
+          </div>
+          <div class="footer_links">
+            <h4>Compañía</h4>
+            <ul>
+              <li><a href="#">Sobre nosotros</a></li>
+              <li><a href="#">Cómo trabajar con nosotros</a></li>
+            </ul>
+          </div>
+          <div class="footer_links">
+            <h4>Contactanos</h4>
+            <ul>
+              <li><a href="#">(506) 60324248</a></li>
+              <li><a href="#">info@codecrafters.com</a></li>
+            </ul>
+          </div>
+          <div class="footer_links">
+            <h4>Siguenos en redes sociales</h4>
+            <div class="social_links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/js/navAdmin.js"></script>
+    <script type="module" src="/js/createAdvertisementSetup.js"></script>
+    <script type="module" src="/js/changeCardsAdmin.js"></script>
+  </body>
+</html>

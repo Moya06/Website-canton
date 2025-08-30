@@ -1,0 +1,6 @@
+.cursor_rules
+node_modules
+package-lock.json
+.env
+mongo-init
+cursor_rules

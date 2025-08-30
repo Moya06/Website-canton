@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crear Anuncio | Mis Vecinos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #6d28d9;
+      --primary-dark: #5b21b6;
+      --primary-light: rgba(109, 40, 217, 0.1);
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --bg: #f9fafb;
+      --bg-card: #ffffff;
+      --border: #e5e7eb;
+      --error: #dc2626;
+      --font-main: 'Inter', sans-serif;
+      --font-heading: 'DM Serif Text', serif;
+      --space-sm: 0.8rem;
+      --space-md: 1.2rem;
+      --space-lg: 2rem;
+      --space-xl: 3rem;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --transition: all 0.25s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-main);
+      color: var(--text);
+      background-color: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form_center_div {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: var(--space-xl) 5%;
+    }
+
+    .form {
+      width: 100%;
+      max-width: 500px;
+      background: var(--bg-card);
+      padding: var(--space-xl);
+      border-radius: 12px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+    }
+
+    .div_sub_container_form {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--space-lg);
+      position: relative;
+    }
+
+    .title {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      color: var(--primary);
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .button_back {
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .button_back:hover {
+      transform: translateX(-4px);
+      color: var(--primary-dark);
+    }
+
+    .button_back_box {
+      display: flex;
+      align-items: center;
+    }
+
+    .button_back svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    label {
+      position: relative;
+      margin-bottom: var(--space-md);
+      display: block;
+    }
+
+    .input {
+      width: 100%;
+      padding: var(--space-sm);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: var(--font-main);
+      font-size: 1rem;
+      transition: var(--transition);
+      background: var(--bg);
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+
+    label span {
+      position: absolute;
+      left: var(--space-sm);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      transition: var(--transition);
+      pointer-events: none;
+      background: var(--bg-card);
+      padding: 0 4px;
+    }
+
+    .input:focus + span,
+    .input:not(:placeholder-shown) + span {
+      top: 0;
+      font-size: 0.8rem;
+      color: var(--primary);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-sm) var(--space-md);
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      border: none;
+      gap: var(--space-sm);
+    }
+
+    .button_color_primary {
+      background-color: var(--primary);
+      color: white;
+      width: 100%;
+      margin-top: var(--space-md);
+    }
+
+    .button_color_primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Footer styles */
+    .footer {
+      background-color: white;
+      padding: var(--space-xl) 5%;
+      border-top: 1px solid var(--border);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer_row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .footer_links {
+      margin-bottom: var(--space-md);
+    }
+
+    .footer_links h4 {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      margin-bottom: var(--space-sm);
+      color: var(--primary);
+    }
+
+    .footer_links ul {
+      list-style: none;
+    }
+
+    .footer_links li {
+      margin-bottom: var(--space-xs);
+    }
+
+    .footer_links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .footer_links a:hover {
+      color: var(--primary);
+    }
+
+    .social_links {
+      display: flex;
+      gap: var(--space-sm);
+    }
+
+    .social_links a {
+      color: var(--text-light);
+      transition: var(--transition);
+    }
+
+    .social_links a:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .form {
+        padding: var(--space-lg);
+      }
+      
+      .title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="form_center_div">
+  <form class="form" id="form" method="POST" action="announcement/create-announcement">
+    <div class="div_sub_container_form">
+      <a href="advertisement" class="button_back">
+        <div class="button_back_box">
+          <span class="button_elem">
+            <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M0 20.038c0-.7.3-1.5.8-2.1l16-17c1.1-1 3.2-1.4 4.4-.3 1.2 1.1 1.2 3.3 0 4.4L9.9 20.038H43c1.7 0 3 1.3 3 3s-1.3 3-3 3H9.9l11.3 11.9c1 1 1.2 3.3 0 4.4-1.2 1.1-3.3.8-4.4-.3l-16-17c-.5-.5-.8-1.1-.8-1.9z">
+              </path>
+            </svg>
+          </span>
+        </div>
+      </a>
+      <p class="title">Crear anuncio</p>
+    </div>
+
+    <label>
+      <input required placeholder="" type="text" class="input" id="title" name="name" />
+      <span>Nombre</span>
+    </label>
+
+    <label>
+      <input required placeholder="" type="text" class="input" id="description" name="description" />
+      <span>Descripción</span>
+    </label>
+
+    <label>
+      <input required placeholder="" type="text" class="input" id="address" name="address" />
+      <span>Ubicación</span>
+    </label>
+    
+    <label>
+      <input required placeholder="" type="date" class="input" id="date" name="date" />
+      <span>Fecha</span>
+    </label>
+
+ <button type="submit" class="button button_color_primary">Crear anuncio</button>
+  </form>
+</div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer_row">
+        <div class="footer_links">
+          <h4>Mis vecinos</h4>
+          <ul>
+            <li><a href="#">Code Crafters team</a></li>
+            <li><a href="#">codecrafters.com</a></li>
+            <li><a href="#">#code-crafters</a></li>
+          </ul>
+        </div>
+        <div class="footer_links">
+          <h4>Compañía</h4>
+          <ul>
+            <li><a href="#">Sobre nosotros</a></li>
+            <li><a href="#">Cómo trabajamos</a></li>
+          </ul>
+        </div>
+        <div class="footer_links">
+          <h4>Contáctanos</h4>
+          <ul>
+            <li><a href="#">(506) 60324248</a></li>
+            <li><a href="#">info@codecrafters.com</a></li>
+          </ul>
+        </div>
+        <div class="footer_links">
+          <h4>Síguenos en redes sociales</h4>
+          <div class="social_links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/advertisementSchema.js"></script>
+</body>
+</html>

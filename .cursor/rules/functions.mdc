@@ -1,0 +1,91 @@
+Sure! Here are the best practices for each major library/framework based on your dependencies. Remember to adapt the globs depending on your project.
+
+---
+name: react-best-practices.mdc
+description: Best practices for React applications
+globs: **/*.{ts,tsx,js,jsx}
+---
+
+- Use functional components and hooks instead of class components.
+- Keep components small and focused on a single responsibility.
+- Use `React.memo` for performance optimization on pure components.
+- Implement PropTypes or TypeScript for type checking.
+
+---
+name: express-best-practices.mdc
+description: Best practices for Express.js applications
+globs: **/*.{js}
+---
+
+- Use middleware for modularity and separation of concerns.
+- Implement error handling middleware for centralized error management.
+- Validate request data using libraries like Joi or express-validator.
+- Use async/await for handling asynchronous operations.
+
+---
+name: mongoose-best-practices.mdc
+description: Best practices for Mongoose and MongoDB interactions
+globs: **/*.{js}
+---
+
+- Use schema validation to enforce data integrity.
+- Implement indexes for frequently queried fields to improve performance.
+- Use lean queries when you don’t need Mongoose documents.
+- Handle errors gracefully with try/catch blocks.
+
+---
+name: jest-best-practices.mdc
+description: Best practices for testing with Jest
+globs: **/*.{ts,tsx,js,jsx}
+---
+
+- Write unit tests for individual functions and components.
+- Use `describe` and `it` blocks for better test organization.
+- Mock external dependencies to isolate tests.
+- Use snapshot testing for React components to catch UI changes.
+
+---
+name: redux-best-practices.mdc
+description: Best practices for state management with Redux
+globs: **/*.{ts,tsx,js,jsx}
+---
+
+- Use Redux Toolkit for simplified store setup and best practices.
+- Keep the state normalized to avoid deeply nested structures.
+- Use selectors for accessing state to improve performance.
+- Implement middleware for side effects (e.g., redux-thunk or redux-saga).
+
+---
+name: axios-best-practices.mdc
+description: Best practices for making HTTP requests with Axios
+globs: **/*.{ts,tsx,js,jsx}
+---
+
+- Create an Axios instance for centralized configuration (base URL, headers).
+- Use interceptors for request/response handling and error logging.
+- Handle errors gracefully and provide user feedback.
+- Use async/await for cleaner asynchronous code.
+
+---
+name: eslint-best-practices.mdc
+description: Best practices for code linting with ESLint
+globs: **/*.{ts,tsx,js,jsx}
+---
+
+- Use a consistent coding style by extending popular configurations (e.g., Airbnb).
+- Enable TypeScript support for type checking in linting.
+- Use ESLint plugins for React and other libraries for better integration.
+- Regularly run linting as part of the development process to catch issues early.
+
+---
+name: prettier-best-practices.mdc
+description: Best practices for code formatting with Prettier
+globs: **/*.{ts,tsx,js,jsx,json,css}
+---
+
+- Use Prettier for consistent code formatting across the project.
+- Integrate Prettier with ESLint to avoid conflicts.
+- Configure Prettier settings in a `.prettierrc` file for project-specific rules.
+- Run Prettier as a pre-commit hook to ensure code is formatted before commits.
+
+Feel free to adjust the globs and practices based on your specific project needs!

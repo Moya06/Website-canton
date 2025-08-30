@@ -1,0 +1,104 @@
+/*Variables globales */
+:root {
+  --color-background: #f3f3f3;
+  --color-card: #fff;
+  --color-primary: #075056;
+  --color-secondary: #16232A;
+  --color-text-dark: #333;
+
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 30px;
+
+  --font-size-base: 16px;
+  --font-family-body: 'Arial', sans-serif;
+}
+
+/* Contenedor principal*/
+.container_user_profile {
+  display: flex;
+  gap: var(--spacing-large);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 5rem;
+}
+
+/* Tarjeta de perfil y formulario */
+.card_user_profile,
+.form_user_profile {
+  background-color: var(--color-card);
+  padding: var(--spacing-medium);
+  border-radius: 12px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 20px;
+  position: relative;
+  justify-content: center;
+  margin-top: 7rem;
+}
+
+.container_logOut {
+  display: flex;
+  justify-content: center;
+}
+
+.logOut_div {
+  width: 50%;
+}
+
+/*Imagen de perfil */
+.card_user_profile img {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Texto dentro de la tarjeta */
+.div_user_info {
+  margin-top: var(--spacing-small);
+}
+
+
+/* Campos de entrada */
+.form_user_profile input {
+  padding: var(--spacing-small);
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/*Botón editar */
+.form_user_profile button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: var(--spacing-small);
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  font-size: var(--font-size-base);
+}
+
+.form_user_profile button:hover {
+  background-color: var(--color-secondary);
+}
+
+/* Responsive*/
+@media (max-width: 768px) {
+  .container_user_profile {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card_user_profile {
+    display: none;
+    /* Oculta la tarjeta de perfil */
+  }
+
+  .form_user_profile {
+    width: 90%;
+  }
+}

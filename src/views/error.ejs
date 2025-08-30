@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Error</title>
+  <link rel="stylesheet" href="/css/index.css" />
+  <style>
+    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background: #fff5f5; color: #24292f; }
+    .container { text-align: center; padding: 32px; }
+    h1 { font-size: 2rem; margin: 0 0 8px; color: #d1242f; }
+    p { margin: 0 0 16px; color: #57606a; }
+    pre { text-align: left; background: #f6f8fa; padding: 12px; border-radius: 6px; overflow: auto; }
+    a.button { display: inline-block; padding: 10px 16px; background: #0969da; color: #fff; text-decoration: none; border-radius: 6px; }
+    a.button:hover { background: #0759b6; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Ocurrió un error</h1>
+    <p><%= (typeof message !== 'undefined' && message) ? message : 'Hubo un problema procesando tu solicitud.' %></p>
+    <% if (typeof error !== 'undefined' && error) { %>
+      <pre><%= error.stack || error %></pre>
+    <% } %>
+    <a class="button" href="/">Ir al inicio</a>
+  </main>
+</body>
+</html>
+

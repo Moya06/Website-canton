@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quejas | Mis Vecinos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #6d28d9;
+      --primary-dark: #5b21b6;
+      --primary-light: rgba(109, 40, 217, 0.1);
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --bg: #f9fafb;
+      --bg-card: #ffffff;
+      --border: #e5e7eb;
+      --error: #dc2626;
+      --font-main: 'Inter', sans-serif;
+      --font-heading: 'DM Serif Text', serif;
+      --space-xs: 0.4rem;
+      --space-sm: 0.8rem;
+      --space-md: 1.2rem;
+      --space-lg: 2rem;
+      --space-xl: 3rem;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --transition: all 0.25s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-main);
+      color: var(--text);
+      background-color: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ---------- NAVBAR ---------- */
+    nav {
+      background-color: var(--bg-card);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-sm) 5%;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 40px;
+      transition: var(--transition);
+    }
+
+    .logo img:hover {
+      transform: translateY(-2px);
+    }
+
+    /* ---------- MENÚ HAMBURGUESA ---------- */
+    #toggle {
+      display: none;
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      padding: var(--space-sm);
+    }
+
+    .hamburger svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .hamburger .line {
+      fill: none;
+      stroke: var(--text);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: var(--transition);
+    }
+
+    /* ---------- MENÚ ---------- */
+    .menu {
+      display: flex;
+      list-style: none;
+      gap: var(--space-md);
+      align-items: center;
+    }
+
+    .menu a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      transition: var(--transition);
+      padding: var(--space-sm) 0;
+      position: relative;
+    }
+
+    .menu a:hover {
+      color: var(--primary);
+    }
+
+    .menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .menu a:hover::after {
+      width: 100%;
+    }
+
+    /* ---------- CONTENIDO PRINCIPAL ---------- */
+    .setup_creation_container {
+      max-width: 1200px;
+      margin: var(--space-xl) auto var(--space-lg);
+      padding: 0 5%;
+    }
+
+    .setup_creation_container h1 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: var(--space-lg);
+    }
+
+    /* ---------- TARJETAS DE QUEJAS ---------- */
+    .container_cards {
+      max-width: 1200px;
+      margin: 0 auto var(--space-xl);
+      padding: 0 5%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(109, 40, 217, 0.2);
+    }
+
+    .card-content {
+      padding: var(--space-lg);
+    }
+
+    .card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      color: var(--primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: var(--space-sm);
+      line-height: 1.5;
+    }
+
+    .card p strong {
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .footer {
+      background-color: var(--bg-card);
+      padding: var(--space-xl) 5%;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer_row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .footer_links {
+      margin-bottom: var(--space-md);
+    }
+
+    .footer_links h4 {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      margin-bottom: var(--space-sm);
+      color: var(--primary);
+    }
+
+    .footer_links ul {
+      list-style: none;
+    }
+
+    .footer_links li {
+      margin-bottom: var(--space-xs);
+    }
+
+    .footer_links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .footer_links a:hover {
+      color: var(--primary);
+    }
+
+    .social_links {
+      display: flex;
+      gap: var(--space-sm);
+    }
+
+    .social_links a {
+      color: var(--text-light);
+      transition: var(--transition);
+      font-size: 1.1rem;
+    }
+
+    .social_links a:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* ---------- MEDIA QUERIES ---------- */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      .menu {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-card);
+        flex-direction: column;
+        padding: var(--space-md);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        z-index: 99;
+      }
+
+      #toggle:checked~.menu {
+        transform: translateY(0);
+      }
+
+      .setup_creation_container h1 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container_cards {
+        grid-template-columns: 1fr;
+      }
+
+      .setup_creation_container h1 {
+        font-size: 1.5rem;
+      }
+    }
+
+    .complaints-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: var(--space-xl) auto var(--space-lg);
+      padding: 0 5%;
+    }
+
+    .complaints-title {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      color: var(--text);
+      margin: 0;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-right: 500px;
+    }
+
+    .create-complaint-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      margin-left: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        <img src="/imgs/logos/logo_mis_vecinos.jpeg" alt="Logo mis vecinos" />
+      </div>
+
+      <input type="checkbox" id="toggle" />
+
+      <label for="toggle" class="hamburger">
+        <svg viewBox="0 0 32 32">
+          <path class="line line-top-bottom"
+            d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22">
+          </path>
+          <path class="line" d="M7 16 27 16"></path>
+        </svg>
+      </label>
+
+      <ul class="menu">
+        <li><a href="dashboard">Dashboard</a></li>
+        <li><a href="advertisement">Anuncios</a></li>
+        <li><a href="event">Eventos</a></li>
+        <li><a href="complaint">Quejas</a></li>
+        <li><a href="transport">Transporte</a></li>
+        <li><a href="entrepreneur">Emprendimientos</a></li>
+        <li><a href="profile">Mi perfil</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="complaints-header">
+
+    <h1 class="complaints-title">
+      <i class="fas fa-triangle-exclamation" aria-hidden="true"></i>
+      <span>Quejas</span>
+    </h1>
+
+
+    <div class="creation_div">
+
+      <button class="create-complaint-btn">
+        <i class="fas fa-plus"></i> Crear queja
+      </button>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <div class="container_cards">
+    <div class="card">
+      <div class="card-content">
+        <h3>Seguridad</h3>
+        <p><strong>Fecha:</strong> 20 de agosto</p>
+        <p><strong>Lugar:</strong> Estadio Nacional</p>
+        <p>
+          <strong>Descripción:</strong> Incidente de vandalismo en área común.
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <h3>Medio Ambiente</h3>
+        <p><strong>Fecha:</strong> 1 de agosto</p>
+        <p><strong>Lugar:</strong> Ciudad Colón</p>
+        <p>
+          <strong>Descripción:</strong> Monitoreo de uso de agua en el sector.
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <h3>Familiares Sin Humo</h3>
+        <p><strong>Fecha:</strong> 7 de agosto</p>
+        <p><strong>Lugar:</strong> Ciudad Colón</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer_row">
+        <div class="footer_links">
+          <h4>Mis vecinos</h4>
+          <ul>
+            <li><a href="#">Code Crafters team</a></li>
+            <li><a href="#">codecrafters.com</a></li>
+            <li><a href="#">#code-crafters</a></li>
+          </ul>
+        </div>
+        <div class="footer_links">
+          <h4>Compañía</h4>
+          <ul>
+            <li><a href="#">Sobre nosotros</a></li>
+            <li><a href="#">Cómo trabajar con nosotros</a></li>
+          </ul>
+        </div>
+        <div class="footer_links">
+          <h4>Contáctanos</h4>
+          <ul>
+            <li><a href="#">(506) 60324248</a></li>
+            <li><a href="#">info@codecrafters.com</a></li>
+          </ul>
+        </div>
+        <div class="footer_links">
+          <h4>Síguenos en redes sociales</h4>
+          <div class="social_links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/createComplaintSetup.js"></script>
+  <script type="module" src="/js/navAdmin.js"></script>
+  <script type="module" src="/js/changeCardsAdmin.js"></script>
+</body>
+
+</html>
