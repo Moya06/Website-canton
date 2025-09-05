@@ -1,0 +1,99 @@
+/* Estilos por defecto (para pantallas grandes o base) */
+#container_landing_page {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 20px; /* Un poco de padding general para evitar que el contenido toque los bordes */
+}
+
+#container_text_landing_page {
+  width: 50%;
+  margin-top: 6em;
+}
+
+#img_landing {
+  width: 50%;
+}
+
+#img_landing > img {
+
+  width: 100%;
+  height: 100vh;
+  display: block; /* Elimina espacio extra debajo de la imagen */
+  position: relative; /* Mantén position: relative si quieres usar 'top' */
+  top: -145px; /* Ajustado un poco, puedes experimentar con este valor */
+  left: 1.2em;
+}
+
+#div_button_landing {
+  width: 20%;
+  margin-left: 0.1em;
+}
+
+/* --- Media Query para Tabletas y Móviles (pantallas de hasta 768px de ancho) --- */
+@media (max-width: 768px) {
+  #container_landing_page {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  #container_text_landing_page {
+    margin-top: 50px; /* Ajusta este valor para el espacio superior en móviles */
+    width: 90%; /* Ocupa más ancho en pantallas pequeñas */
+    padding-right: 0; /* Quita el padding derecho cuando está apilado */
+    padding-bottom: 30px; /* Añade espacio entre el texto y la imagen apilada */
+  }
+
+  #img_landing {
+    width: 90%; /* Ocupa más ancho en pantallas pequeñas */
+  }
+
+  #img_landing > img {
+    top: 0; /* Deshabilita el desplazamiento negativo en móviles para evitar problemas */
+    max-width: 100%; /* Asegura que la imagen no exceda el 100% del contenedor */
+    margin-bottom: 20px; /* Añade espacio debajo de la imagen si hay más contenido */
+  }
+
+  #div_button_landing {
+    width: 50%; /* Haz el botón más ancho en móviles para que sea más fácil de tocar */
+    margin: 0 auto; /* Centra el botón si es un bloque */
+    /* Si el botón es un enlace o un elemento inline, podría necesitar display: block; */
+  }
+}
+
+/* --- Media Query para Móviles muy pequeños (opcional, hasta 480px) --- */
+@media (max-width: 480px) {
+  #container_text_landing_page {
+    margin-top: 30px; /* Más compacto en móviles muy pequeños */
+    width: 95%;
+  }
+
+  #img_landing {
+    width: 95%;
+  }
+
+  #img_landing > img {
+    /* Puedes ajustar más aquí si es necesario */
+    width: 100%;
+    min-width: 24rem;
+    height: 50%;
+    left: 0.2rem;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  #div_button_landing {
+    width: 70%; /* Aun más ancho para facilitar el clic */
+  }
+
+  .menu > li > .text_white{
+    background: white;
+    color: black;
+  }
+
+  .menu > li > .text_white:hover{
+    color: black;
+    opacity: 0.8;
+  }
+}

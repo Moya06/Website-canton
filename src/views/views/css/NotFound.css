@@ -1,0 +1,129 @@
+ :root {
+  /* Colors */
+  --color-primary: #075056;
+  --color-secondary: #16232a;
+  --color-orange: #ff5b05;
+  --color-text-dark: #000;
+
+  /* Spacing */
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 24px;
+
+  /* Fonts */
+  --font-family-title: "Arial", sans-serif;
+  --font-family-body: "Arial", sans-serif;
+  --font-size-base: 16px;
+}
+
+ body {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     min-height: 100vh;
+     margin: 0;
+     font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+     background: #f6f8fa;
+     color: #24292f;
+ }
+
+ .container {
+     text-align: center;
+     padding: 32px;
+ }
+
+ h1 {
+     font-size: 2rem;
+     margin: 0 0 8px;
+ }
+
+ p {
+     margin: 0 0 16px;
+     color: #57606a;
+ }
+
+
+
+ a {
+     display: inline-flex;
+     align-items: center;
+     display: flex;
+     justify-content: center;
+     gap: 10px;
+     padding: 12px 24px;
+     border-radius: 8px;
+     background: var(--color-primary);
+     color: white;
+     text-decoration: none;
+     font-weight: 600;
+     font-size: 14px;
+     transition: all 0.3s ease;
+     box-shadow: 0 4px 12px rgba(7, 80, 86, 0.3);
+     border: none;
+     cursor: pointer;
+ }
+
+ a:hover {
+     transform: translateY(-2px);
+     box-shadow: 0 6px 20px rgba(7, 80, 86, 0.4);
+     background: var(--color-secondary);
+ }
+
+ a:active {
+     transform: translateY(0);
+ }
+
+ @keyframes greentopBubbles {
+     0% {
+         background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%,
+             40% 90%, 55% 90%, 70% 90%;
+     }
+
+     50% {
+         background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%,
+             50% 50%, 65% 20%, 90% 30%;
+     }
+
+     100% {
+         background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%,
+             50% 40%, 65% 10%, 90% 20%;
+         background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+     }
+ }
+
+ a:hover::after {
+     bottom: -70%;
+     background-image: radial-gradient(circle,
+             var(--color-primary) 20%,
+             transparent 20%),
+         radial-gradient(circle, var(--color-primary) 20%, transparent 20%),
+         radial-gradient(circle,
+             transparent 10%,
+             var(--color-primary) 15%,
+             transparent 20%),
+         radial-gradient(circle, var(--color-primary) 20%, transparent 20%),
+         radial-gradient(circle, var(--color-primary) 20%, transparent 20%),
+         radial-gradient(circle, var(--color-primary) 20%, transparent 20%),
+         radial-gradient(circle, var(--color-primary) 20%, transparent 20%);
+     background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
+     background-position: 50% 0%;
+     animation: greenbottomBubbles 0.6s ease;
+ }
+
+ @keyframes greenbottomBubbles {
+     0% {
+         background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%,
+             70% -10%, 70% 0%;
+     }
+
+     50% {
+         background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%,
+             105% 0%;
+     }
+
+     100% {
+         background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%,
+             110% 10%;
+         background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+     }
+ }
