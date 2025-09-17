@@ -1,0 +1,469 @@
+   :root {
+      --primary: #6d28d9;
+      --primary-dark: #5b21b6;
+      --primary-light: rgba(109, 40, 217, 0.1);
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --bg: #f9fafb;
+      --bg-card: #ffffff;
+      --border: #e5e7eb;
+      --error: #dc2626;
+      --font-main: 'Inter', sans-serif;
+      --font-heading: 'DM Serif Text', serif;
+      --space-xs: 0.4rem;
+      --space-sm: 0.8rem;
+      --space-md: 1.2rem;
+      --space-lg: 1.6rem;
+      --space-xl: 2rem;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --transition: all 0.2s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-main);
+      color: var(--text);
+      background-color: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
+
+    /* ---------- NAVBAR ---------- */
+    nav {
+      background-color: var(--bg-card);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-sm) 5%;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 40px;
+      transition: var(--transition);
+    }
+
+    .logo img:hover {
+      transform: translateY(-2px);
+    }
+
+    /* ---------- MENÚ HAMBURGUESA ---------- */
+    #toggle {
+      display: none;
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      padding: var(--space-sm);
+    }
+
+    .hamburger svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .hamburger .line {
+      fill: none;
+      stroke: var(--text);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: var(--transition);
+    }
+
+    /* ---------- MENÚ ---------- */
+    .menu {
+      display: flex;
+      list-style: none;
+      gap: var(--space-md);
+      align-items: center;
+    }
+
+    .menu a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      transition: var(--transition);
+      padding: var(--space-sm) 0;
+      position: relative;
+    }
+
+    .menu a:hover {
+      color: var(--primary);
+    }
+
+    .menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .menu a:hover::after {
+      width: 100%;
+    }
+
+    /* ---------- CONTENIDO PRINCIPAL ---------- */
+    .main-content {
+      max-width: 1200px;
+      margin: var(--space-xl) auto;
+      padding: 0 5%;
+      flex: 1;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-lg);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .transport-icon {
+      font-size: 1.8rem;
+      color: var(--text);
+    }
+
+    .page-title {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .create-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-left: 220px;
+      /* Esto lo empuja a la derecha */
+      white-space: nowrap;
+      /* Evita que el texto se divida */
+    }
+
+    /* Media query para móviles */
+    @media (max-width: 480px) {
+      .page-header {
+        flex-direction: row;
+        /* Mantenemos horizontal */
+        flex-wrap: wrap;
+        /* Permite salto de línea si es necesario */
+      }
+
+      .create-btn {
+        margin-left: 0;
+        /* Quita el margen automático */
+        width: 100%;
+        /* Ocupa todo el ancho */
+        justify-content: center;
+        /* Centra el contenido */
+        margin-top: var(--space-sm);
+        /* Espacio arriba */
+      }
+    }
+
+    .create-btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Contenedor de creación */
+    .creation_div {
+      /* Eliminar estas propiedades */
+      position: absolute;
+      left: 1065px;
+
+    }
+
+    /* ---------- TARJETAS DE TRANSPORTE ---------- */
+    .transport-card {
+      background-color: var(--bg-card);
+      border-radius: 8px;
+      padding: var(--space-md);
+      margin-bottom: var(--space-lg);
+      box-shadow: var(--shadow-sm);
+      border-left: 4px solid var(--primary);
+    }
+
+    .transport-name {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      color: var(--primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .transport-description {
+      margin-bottom: var(--space-md);
+      color: var(--text);
+    }
+
+    .transport-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      color: var(--text);
+    }
+
+    .detail-icon {
+      color: var(--primary);
+      width: 20px;
+      text-align: center;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    .action-button {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .action-button:hover {
+      color: var(--primary-dark);
+    }
+
+    .divider {
+      border: none;
+      height: 1px;
+      background-color: var(--border);
+      margin: var(--space-lg) 0;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .footer {
+      background-color: var(--bg-card);
+      padding: var(--space-xl) 5%;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer_row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .footer_links {
+      margin-bottom: var(--space-md);
+    }
+
+    .footer_links h4 {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      margin-bottom: var(--space-sm);
+      color: var(--primary);
+    }
+
+    .footer_links ul {
+      list-style: none;
+    }
+
+    .footer_links li {
+      margin-bottom: var(--space-xs);
+    }
+
+    .footer_links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .footer_links a:hover {
+      color: var(--primary);
+    }
+
+    .social_links {
+      display: flex;
+      gap: var(--space-sm);
+    }
+
+    .social_links a {
+      color: var(--text-light);
+      transition: var(--transition);
+      font-size: 1.1rem;
+    }
+
+    .social_links a:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* ---------- MEDIA QUERIES ---------- */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      .menu {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-card);
+        flex-direction: column;
+        padding: var(--space-md);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        z-index: 99;
+      }
+
+      #toggle:checked~.menu {
+        transform: translateY(0);
+      }
+
+      .transport-details {
+        flex-direction: column;
+        gap: var(--space-sm);
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        gap: var(--space-sm);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-title {
+        font-size: 1.5rem;
+      }
+
+      .transport-name {
+        font-size: 1.1rem;
+      }
+
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-md);
+      }
+    }
+    /* ESTILOS PARA EL BOTÓN RESPONSIVO *//* Estilo base: botón compacto */
+.creation_div {
+  position: static;
+  margin-left: auto;
+}
+
+
+.create-btn {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: var(--space-sm) var(--space-md); /* Tamaño fijo */
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  white-space: nowrap;
+  width: auto !important; /* Fuerza ancho automático */
+  min-width: 180px; /* Ancho mínimo fijo */
+}
+
+
+.create-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/* Solo para pantallas ≤ 420px */
+@media (max-width: 145px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-md);
+  }
+
+  .creation_div {
+    width: 100%;
+  }
+
+  .create-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+    .create-btn-container {
+      margin-top: 200px;
+      margin-left: auto;
+      margin-right: 100px;
+      /* Ajusta este valor según necesites */
+      transform: translateX(100px);
+      /* Esto moverá el botón 100px más a la derecha */
+      margin-top: 13px;
+      /* Añade 3px de espacio arriba */
+
+    }
+    /* Solo para pantallas grandes (más de 1024px) */
+@media (min-width: 145px) {
+  .page-title {
+    margin-right: 200px;
+  }
+}
+
+/* Para pantallas pequeñas se quita automáticamente */
+@media (max-width: 145px) {
+  .page-title {
+    margin-right: 0;
+  }
+}

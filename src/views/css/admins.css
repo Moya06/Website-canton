@@ -1,4 +1,4 @@
- /* ---------- VARIABLES ---------- */
+  /* ---------- VARIABLES ---------- */
     :root {
       --primary: #6d28d9;
       --primary-dark: #5b21b6;
@@ -9,6 +9,7 @@
       --bg-card: #ffffff;
       --border: #e5e7eb;
       --error: #dc2626;
+      --success: #059669;
 
       --font-main: 'Inter', sans-serif;
       --font-heading: 'Playfair Display', serif;
@@ -24,6 +25,7 @@
       --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
 
       --transition: all 0.25s ease;
+      --radius: 8px;
     }
 
     /* ---------- RESETEO ---------- */
@@ -134,118 +136,114 @@
       width: 100%;
     }
 
-    /* ---------- CONTENIDO PRINCIPAL ---------- */
+    /* ---------- HEADER Y SECCIONES ---------- */
     .container_header {
       flex-grow: 1;
       padding: var(--space-xl) 5%;
+    }
+
+    .header {
       max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: var(--space-xl);
-    }
-
-    @media (min-width: 992px) {
-      .container_header {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    /* ---------- TARJETA DE PERFIL ---------- */
-    .profile-card {
-      background-color: var(--bg-card);
-      border-radius: 8px;
-      padding: var(--space-lg);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
+      margin: 0 auto var(--space-xl);
       display: flex;
-      flex-direction: column;
       align-items: center;
-      text-align: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
     }
 
-    .profile-card img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: var(--space-md);
-      border: 3px solid var(--primary-light);
+    .welcome-text {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
     }
 
-    .profile-info {
-      width: 100%;
+    .section {
+      max-width: 1200px;
+      margin: 0 auto var(--space-xl);
     }
 
-    .profile-info h2 {
+    .section h2 {
       font-family: var(--font-heading);
       font-size: 1.5rem;
-      color: var(--primary);
+      font-weight: 700;
       margin-bottom: var(--space-lg);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
     }
 
-    .profile-detail {
+    /* ---------- CONTROLES DE USUARIOS ---------- */
+    .users-controls {
       display: flex;
       justify-content: space-between;
-      padding: var(--space-sm) 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .profile-detail:last-child {
-      border-bottom: none;
-    }
-
-    .profile-detail strong {
-      color: var(--primary);
-      font-weight: 600;
-    }
-
-    .profile-detail p {
-      color: var(--text);
-    }
-
-    /* ---------- FORMULARIO DE EDICIÓN ---------- */
-    .edit-form {
-      background-color: var(--bg-card);
-      border-radius: 8px;
-      padding: var(--space-lg);
-      border: 1px solid var(--border);
+      align-items: center;
+      margin-bottom: var(--space-lg);
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      background: white;
+      padding: var(--space-md);
+      border-radius: var(--radius);
       box-shadow: var(--shadow-sm);
     }
 
-    .edit-form h2 {
-      font-family: var(--font-heading);
-      font-size: 1.5rem;
-      color: var(--primary);
-      margin-bottom: var(--space-lg);
-      text-align: center;
+    .users-count {
+      font-weight: 600;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
     }
 
-    .form-group {
-      margin-bottom: var(--space-md);
+    .users-filters {
+      display: flex;
+      gap: var(--space-sm);
+      align-items: center;
+      flex-wrap: wrap;
     }
 
-    .form-group label {
-      display: block;
-      margin-bottom: var(--space-xs);
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .form-control {
-      width: 100%;
-      padding: var(--space-sm);
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--bg);
+      border-radius: 25px;
+      padding: 0 var(--space-sm);
       border: 1px solid var(--border);
-      border-radius: 4px;
-      font-family: var(--font-main);
-      font-size: 0.95rem;
       transition: var(--transition);
     }
 
-    .form-control:focus {
+    .search-box:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+      padding: var(--space-sm);
+      width: 250px;
+      outline: none;
+      font-size: 0.9rem;
+    }
+
+    .filter-select {
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 25px;
+      border: 1px solid var(--border);
+      background: white;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-select:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 2px var(--primary-light);
+      box-shadow: 0 0 0 3px var(--primary-light);
     }
 
     /* ---------- BOTONES ---------- */
@@ -264,10 +262,10 @@
       color: white;
       gap: var(--space-xs);
       border: none;
-      width: 100%;
-      margin-top: var(--space-md);
     }
-
+    .button2{
+      
+    }
     .button:hover {
       background-color: var(--primary-dark);
       transform: translateY(-2px);
@@ -284,18 +282,171 @@
       background-color: var(--primary-light);
     }
 
-    .logout-container {
-      display: flex;
-      justify-content: center;
-      padding: var(--space-xl) 5%;
-    }
-
-    .logout-btn {
+    .button-danger {
       background-color: var(--error);
     }
 
-    .logout-btn:hover {
+    .button-danger:hover {
       background-color: #b91c1c;
+    }
+
+    .button-group {
+      display: flex;
+      gap: var(--space-sm);
+      margin-left: auto;
+    }
+
+    /* ---------- CARDS DE USUARIOS ---------- */
+    .container_cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(109, 40, 217, 0.2);
+    }
+
+    .card-header {
+      position: relative;
+      padding: var(--space-md);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .user-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary-light);
+    }
+
+    .user-status {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--success);
+      border: 2px solid white;
+    }
+
+    .user-status.inactive {
+      background: var(--error);
+    }
+
+    .user-info h3 {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      margin-bottom: var(--space-xs);
+    }
+
+    .user-email {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .card-content {
+      padding: var(--space-md);
+      flex-grow: 1;
+    }
+
+    .user-details {
+      margin-bottom: var(--space-md);
+    }
+
+    .user-details p {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-xs);
+      font-size: 0.9rem;
+    }
+
+    .user-role {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .role-admin {
+      background: #ffebee;
+      color: #d32f2f;
+    }
+
+    .role-user {
+      background: #e8f5e9;
+      color: #388e3c;
+    }
+
+    .role-moderator {
+      background: #e3f2fd;
+      color: #1976d2;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: var(--space-sm);
+      padding: 0 var(--space-md) var(--space-md);
+    }
+
+    .card-actions button {
+      flex: 1;
+      padding: var(--space-sm);
+    }
+
+    /* ---------- PAGINACIÓN ---------- */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-xs);
+      margin: var(--space-xl) 0;
+    }
+
+    .pagination button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: white;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .pagination button:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .pagination button.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
     }
 
     /* ---------- FOOTER ---------- */
@@ -372,6 +523,26 @@
     /* ---------- MEDIA QUERIES ---------- */
     /* Tablet */
     @media (max-width: 992px) {
+      .header {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .users-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .search-box input {
+        width: 100%;
+      }
+      
+      .button-group {
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
+      }
+      
       nav {
         padding: var(--space-sm) 3%;
       }
@@ -402,11 +573,31 @@
       .footer_row {
         grid-template-columns: repeat(2, 1fr);
       }
+      
+      .container_cards {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* Teléfonos pequeños */
     @media (max-width: 480px) {
+      .section h2 {
+        font-size: 1.3rem;
+      }
+      
+      .filter-select {
+        width: 100%;
+      }
+      
       .footer_row {
         grid-template-columns: 1fr;
+      }
+      
+      .card-actions {
+        flex-direction: column;
+      }
+      
+      .button-group {
+        flex-direction: column;
       }
     }

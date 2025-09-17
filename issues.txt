@@ -1,0 +1,18 @@
+Emprendedor-Ciudadano
+Inicio session(error al ingresar no sale)
+register
+anuncios(mas info/ver detalles/pagar hora)
+Eventos(mas info)
+Quejas(crear queja)
+transporte(mas info/ver ruta)
+Emprendimiento(crear emprendimiento/mas info)
+mi perfil(editar y actualizar, guardar datos/ cerrar sesion)
+
+Admin
+anuncio(crear anuncio/mas info)
+evento(crear evento/mas info)
+quejas(agregar boton de eliminar queja)
+transporte(crear trasnporte
+entretenimiento(mas info)
+mi perfil(editar y actualizar, guardar datos/ cerrar sesion)
+Usuario(editar/eiliminar/buscar/todos los roles/ ordenar por/ pasar 1-2-3/usuarios encontrados/crear usuario)
