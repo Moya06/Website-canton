@@ -1,0 +1,288 @@
+:root {
+  /* Colors */
+  --color-primary: #075056;
+  --color-secondary: #16232a;
+  --color-orange: #ff5b05;
+  --color-text-dark: #000;
+
+  /* Spacing */
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 24px;
+
+  /* Fonts */
+  --font-family-title: "Arial", sans-serif;
+  --font-family-body: "Arial", sans-serif;
+  --font-size-base: 16px;
+}
+
+.form_center_div {
+  display: flex;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 50%;
+  min-width: 350px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+  justify-content: center;
+  margin-top: 7rem;
+}
+
+.title {
+  font-size: 28px;
+  color: #000;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+}
+
+.title::before,
+.title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: var(--color-primary);
+}
+
+.title::before {
+  width: 18px;
+  height: 18px;
+  background-color: var(--color-primary);
+}
+
+.title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
+}
+
+.message,
+.signin {
+  color: rgba(88, 87, 87, 0.822);
+  font-size: 14px;
+}
+
+.forgot_password > a {
+  color: var(--color-primary);
+  text-align: left;
+}
+
+.signin {
+  text-align: center;
+}
+
+.signin a {
+  color: #075056;
+}
+
+.signin a:hover {
+  text-decoration: underline #075056;
+}
+
+.div_sub_container_form {
+  display: flex;
+  justify-content: start;
+  width: 100%;
+  gap: 6px;
+}
+.div_sub_container_form > input {
+  width: 100%;
+}
+
+.form label {
+  position: relative;
+  width: 100%;
+}
+
+.form label .input {
+  width: 100%;
+  padding: 10px 0 20px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+.form label .input + span {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.form label .input:placeholder-shown + span {
+  top: 15px;
+  font-size: 0.9em;
+}
+
+.form label .input:focus + span,
+.form label .input:valid + span {
+  top: 30px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.form label .error_message {
+  color: #ff3333 !important;
+}
+
+.form label .input:valid + span {
+  color: green;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.custum-file-upload {
+  height: 200px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  gap: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #cacaca;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 48px 35px -48px rgba(0, 0, 0, 0.1);
+}
+
+.custum-file-upload .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .icon svg {
+  height: 80px;
+  fill: rgba(75, 85, 99, 1);
+}
+
+.custum-file-upload .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .text span {
+  font-weight: 400;
+  color: rgba(75, 85, 99, 1);
+}
+
+.custum-file-upload input {
+  display: none;
+}
+
+.custom-select {
+  width: 100%;
+  padding: 12px 15px;
+  padding-right: 40px; /* Espacio para la flecha */
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #4a5568;
+  font-size: 1rem;
+  cursor: pointer;
+  appearance: none; /* Oculta la flecha nativa */
+  -webkit-appearance: none; /* Para navegadores basados en Webkit */
+  -moz-appearance: none; /* Para Firefox */
+  outline: none; /* Elimina el borde de enfoque predeterminado */
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+/* Flecha personalizada usando un pseudoelemento */
+.custom-select-wrapper::after {
+  content: "▼"; /* Carácter de flecha */
+  font-size: 0.8rem;
+  color: #000;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* Para que no interfiera con el click en el select */
+  transition: color 0.3s ease;
+}
+
+.custom-select option {
+  background-color: #ffffff;
+  color: #4a5568;
+  padding: 10px;
+  border: none;
+}
+
+.custom-select option:checked {
+  background-color: #e0e7ff; /* Color para la opción seleccionada */
+  color: var(--color-secondary);
+}
+
+#selectedValue {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+
+.button_back {
+  display: block;
+  position: relative;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  overflow: hidden;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  border: 0;
+}
+
+
+.button_back_box {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.button_elem {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 17px 18px 0 18px;
+  transform: rotate(180deg);
+  fill: #000;
+}
+
+.button:hover .button_back_box,
+.button:focus .button_back_box {
+  transition: 0.4s;
+  transform: translateX(-56px);
+}
